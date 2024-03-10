@@ -28,9 +28,15 @@ def find_mood(request, mood_type):
        
     return HttpResponse(mood_text)
 
+def find_goal(request,goal):
+    return HttpResponse(f"this is the goal page for:  {goal}")
 
 # def mood_bynumber1(request,mood_number):
 #     mood_list = list(moods_dict.keys())
 #     mood_redirect= mood_list[mood_number]
     
 #     return HttpResponseRedirect("/moods"+ mood_redirect)
+
+## -------------
+# goals
+

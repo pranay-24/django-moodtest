@@ -19,5 +19,7 @@ from django.urls import path,include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('mood/',include("moodtracking.urls") )
+    path('mood/',include("moodtracking.urls") ),
+    path('goals/',include("moodtracking.goal_url"))
+    
 ]

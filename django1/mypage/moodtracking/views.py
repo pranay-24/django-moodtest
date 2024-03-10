@@ -1,25 +1,36 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseNotFound
+from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
+from django.urls import reverse
 # Create your views here.
 
+moods_dict = {
+    "happy":"This is the happy mood",
+    "sad":"This is the sad mood!"
+}
 def find_mood_bynumber(request, mood_number):
-    mood_text = None
     
-    if mood_number ==1:
-        mood_text = 'Happy'
-    elif mood_number ==2:
-        mood_text = 'Sad'
-    else:
-        return HttpResponseNotFound()
-    return HttpResponse(mood_text)
+    moods_list = list(moods_dict.keys())
+    
+    if len(moods_list) <mood_number:
+        return HttpResponseNotFound("Invalid request") 
+    redirect_mood = moods_list[mood_number-1]
+    redirect_path = reverse("mood_url", args = [redirect_mood])
+    return HttpResponseRedirect(redirect_path)
+    
 
 def find_mood(request, mood_type):
-    mood_text  = None
     
-    if mood_type =='happy':
-        mood_text = 'Happy'
-    elif mood_type =='sad':
-        mood_text = 'Sad'
-    else:
-        return HttpResponseNotFound()
+    try:
+       mood_text  = moods_dict[mood_type] 
+    
+    except:
+      return HttpResponseNotFound()
+       
     return HttpResponse(mood_text)
+
+
+# def mood_bynumber1(request,mood_number):
+#     mood_list = list(moods_dict.keys())
+#     mood_redirect= mood_list[mood_number]
+    
+#     return HttpResponseRedirect("/moods"+ mood_redirect)

@@ -4,5 +4,6 @@ from . import views
 urlpatterns = [
     path('<int:mood_number>', views.find_mood_bynumber),
     path('<str:mood_type>',views.find_mood, name = "mood_url"),
+    path('',views.mood_list),
    
 ]

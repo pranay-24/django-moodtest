@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mood List</title>
+    <ul>
+    {% for item in mood_list %}
+        <li><a href = "{% url  'mood_url' item %}">{{item}}</a></li>
+    {%endfor%}
+    </ul>
+</head>
+<body>  
+    
+</body>
+</html>

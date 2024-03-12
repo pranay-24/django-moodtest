@@ -16,7 +16,7 @@ class Mood(models.Model):
         (EXCITED, 'Excited'),
         (CALM, 'Calm'),
     ]
-    
+    #mood choices enetered , but it is not working
     title = models.CharField(max_length = 30, choices=MOOD_CHOICES)
     description = models.CharField(max_length = 200)
     def __str__(self):

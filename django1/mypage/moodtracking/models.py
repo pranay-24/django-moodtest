@@ -17,6 +17,7 @@ class Mood(models.Model):
         (CALM, 'Calm'),
     ]
     #mood choices enetered , but it is not working
+    #can add default = "" , and can also add null=True
     title = models.CharField(max_length = 30, choices=MOOD_CHOICES)
     description = models.CharField(max_length = 200)
     def __str__(self):
@@ -26,3 +27,4 @@ class Transaction(models.Model):
     title = models.CharField(max_length = 100)
     value = models.IntegerField()
     mood = models.ForeignKey(Mood, on_delete = models.CASCADE)
+    trsansaction_date = models.DateField()

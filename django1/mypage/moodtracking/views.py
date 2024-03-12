@@ -8,7 +8,7 @@ moods_list = [
     {"mood_title":"happy" , "description":"This is the happy mood"},
     {"mood_title":"sad" , "description":"This is the sad mood"}
 ]
-
+#using list comprehension, create list of moods, use reverse to create redirect path, then redirect
 def find_mood_bynumber(request, mood_number):
     
     #moods_list = list(moods_dict.keys())

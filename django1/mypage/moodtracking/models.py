@@ -34,3 +34,6 @@ class Transaction(models.Model):
     value = models.IntegerField()
     mood = models.ForeignKey(Mood, on_delete = models.CASCADE)
     trsansaction_date = models.DateField()
+    
+class Goal():
+class Notifications(): 

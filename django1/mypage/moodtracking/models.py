@@ -23,10 +23,10 @@ class Mood(models.Model):
     def __str__(self):
         return f"{self.title} ({self.description})"
     # overiding a built in method , can create slugs frm title using this method
-    def save(self, *args, **kwargs):
-        #self.slug = slugify(self.title)
-        self.title = self.title.capitalize()
-        super().save(self,  *args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     #self.slug = slugify(self.title)
+    #     self.title = self.title.capitalize()
+    #     super().save(self,  *args, **kwargs)
         
 
 class Transaction(models.Model):

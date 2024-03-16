@@ -29,11 +29,18 @@ class Mood(models.Model):
     #     super().save(self,  *args, **kwargs)
         
 
-class Transaction(models.Model):
+class Expense(models.Model):
     title = models.CharField(max_length = 100)
     value = models.IntegerField()
     mood = models.ForeignKey(Mood, on_delete = models.CASCADE)
-    trsansaction_date = models.DateField()
+    expense_date = models.DateField()
     
-class Goal():
-class Notifications(): 
+class Goal(models.Model):
+    title = models.CharField(max_length=200)
+    value = models.IntegerField() # can add validator lke IntegerField(validators = [MaxValueValidator(5), MinValueValidator(1)]) # and import MaxValuealidator from django.core.validators
+    isComplete = models.BooleanField(default=False)
+    
+class Notifications(models.Model): 
+    title = models.CharField(max_length=200)
+    date = models.DateField()
+    

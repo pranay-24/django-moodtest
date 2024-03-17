@@ -1,7 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.urls import reverse
 from django.template.loader import render_to_string
+from .models import Mood, Goal
+from forms import MoodFormm ,GoalForm
 # Create your views here.
 
 moods_list = [
@@ -61,3 +63,45 @@ def find_goal(request,goal):
 ##------
 # filtering Syntax
 # next(  post for post in posts if post['slug']== slug )
+
+def create_mood (request):
+    new_mood = Mood.objects.create(mood_name = ,   description = , url = )
+    return render(request, "",{"new_mood" = new_mood } )
+
+def mood_input(request):
+    if request == 'POST':
+        form = MoodForm(request.POST)
+        
+        if form.isValid():
+            mood_name = form.clean_data['mood_name']
+            description = form.cleaned_data['description']
+            new_mood = Mood.objects.create(mood_name = mood_name,   description = description)
+            return redirect('moodlist.html')
+    else :
+        form =  MoodForm()
+    return render(request,'moodinput.html', {'form':form})
+def find_mood(request, mood_id):
+    mood = Mood.objects.filter(id= mood_id)
+    return render(request, "", {"mood":mood})
+
+def find_moods(request):
+    moods = Mood.objects.all()
+    return render(request,"", {"moods":moods})
+
+
+def goal_input(request):
+    if request == 'POST':
+        form = GoalForm(request.POST)
+        
+        if form.isValid():
+            goal_name = form.clean_data['mood_name']
+            target_amount= form.cleaned_data['target_amount']
+            current_amount= form.cleaned_data['current_amount']
+            deadline = form.cleaned_data['deadline']
+            is_completed = form.cleaned_data['is_completed']
+            user_id = form.cleaned_data['user_id']
+            new_goal = Goal.objects.create(goal_name= goal_name, target_amount = target_amount, current_amount: current_amount, deadline = deadline, is_completed = is_completed, user_id = user_id)
+            return redirect('goalist.html')
+    else :
+        form =  MoodForm()
+    return render(request,'moodinput.html', {'form':form})

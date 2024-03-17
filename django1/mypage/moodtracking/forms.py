@@ -1,7 +1,13 @@
 from django import forms 
-from .models import Goal, Mood
+from .models import Goal, Mood, Expense
 
 #errors - class Meta, structure of class GoalForm
+
+class ExpenseForm(forms.ModelForm):
+    class Meta:
+        model = Expense
+        fields = ['title', 'value', 'mood','expense_date', ]
+        
 class GoalForm(forms.ModelForm):
     class Meta:
         model = Goal

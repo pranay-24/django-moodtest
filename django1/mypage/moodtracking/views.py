@@ -3,7 +3,7 @@ from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.urls import reverse
 from django.template.loader import render_to_string
 from .models import Mood, Goal
-from forms import MoodFormm ,GoalForm
+from .forms import MoodForm ,GoalForm
 # Create your views here.
 
 moods_list = [
@@ -64,9 +64,6 @@ def find_goal(request,goal):
 # filtering Syntax
 # next(  post for post in posts if post['slug']== slug )
 
-def create_mood (request):
-    new_mood = Mood.objects.create(mood_name = ,   description = , url = )
-    return render(request, "",{"new_mood" = new_mood } )
 
 def mood_input(request):
     if request == 'POST':

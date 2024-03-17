@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django import forms
 # Create your models here.
 
 # class Mood(models.Model):
@@ -29,20 +30,19 @@ from django.contrib.auth.models import User
     #     super().save(self,  *args, **kwargs)
         
 class Mood(models.Model):
-    mood_id  = models.CharField(max_length = 10, primary_key = True)
     mood_name = models.CharField(max_length = 50)
     description = models.CharField(max_length = 200)
-    emoji = models.ImageField(upload_to='images/')
+    emoji = models.CharField(max_length = 200)
     
     def __str__(self):
         return f"{self.mood_name}"
     
 class Expense(models.Model):
-    expense_id = models.CharField(max_length = 10, primary_key = True)  
-    user = models.ForeignKey(User, on_delete = models.CASCADE )
+     
+    user = models.ForeignKey(User, on_delete = models.CASCADE , default = 1)
     title = models.CharField(max_length = 100)
-    value = models.IntegerField()
-    mood = models.ForeignKey(Mood, on_delete = models.CASCADE)
+    value = models.DecimalField(max_digits = 10, decimal_places = 2)
+    mood = models.ForeignKey(Mood, on_delete = models.CASCADE, null=True, default=1)
     expense_date = models.DateField()
 
 class UserProfile(models.Model):
@@ -60,11 +60,11 @@ class UserProfile(models.Model):
 #     isComplete = models.BooleanField(default=False)
 
 class Goal(models.Model):
-     goal_id  = models.CharField(max_length = 10, primary_key = True)   
-     user_id = models.ForeignKey('', on_delete = models.CASCADE )
+      
+     user = models.ForeignKey(User, on_delete = models.CASCADE , default = 1)
      goal_name = models.CharField(max_length = 50)
-     target_amount = models.DecimalField(deciaml_places = 2)
-     current_amount = models.DecimalField(deciaml_places = 2)
+     target_amount = models.DecimalField(max_digits =10, decimal_places = 2)
+     current_amount = models.DecimalField(max_digits = 10, decimal_places = 2)
      deadline = models.DateTimeField()
      isCompleted = models.BooleanField(default= False)
      
@@ -72,8 +72,8 @@ class Goal(models.Model):
             return self.goal_name
      
 class Notifications(models.Model): 
-    notification_id  = models.CharField(max_length = 10 , primary_key = True)
+   
     message = models.CharField(max_length=200)
-    user_id = models.ForeignKey('', on_delete = models.CASCADE )
+    user = models.ForeignKey(User, on_delete = models.CASCADE )
     timestamp = models.DateField()
     

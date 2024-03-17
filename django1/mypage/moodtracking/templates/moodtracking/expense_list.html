@@ -1,0 +1,29 @@
+<!-- expense_list.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Expense List</title>
+</head>
+<body>
+    <h1>Expense List</h1>
+    <table border="1">
+        <tr>
+            <th>Title</th>
+            <th>Value</th>
+            <th>Mood</th>
+            <th>Expense Date</th>
+            <th>User</th>
+        </tr>
+        {% for expense in expenses %}
+        <tr>
+            <td>{{ expense.title }}</td>
+            <td>{{ expense.value }}</td>
+            <td>{{ expense.mood }}</td>
+            <td>{{ expense.expense_date }}</td>
+            <td>{{ expense.user }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

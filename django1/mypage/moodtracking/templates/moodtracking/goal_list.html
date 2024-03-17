@@ -1,0 +1,29 @@
+<!-- goal_list.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Goal List</title>
+</head>
+<body>
+    <h1>Goal List</h1>
+    <table border="1">
+        <tr>
+            <th>Goal Name</th>
+            <th>Target Amount</th>
+            <th>Current Amount</th>
+            <th>Deadline</th>
+            <th>Completed</th>
+        </tr>
+        {% for goal in goals %}
+        <tr>
+            <td>{{ goal.goal_name }}</td>
+            <td>{{ goal.target_amount }}</td>
+            <td>{{ goal.current_amount }}</td>
+            <td>{{ goal.deadline }}</td>
+            <td>{{ goal.isCompleted }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

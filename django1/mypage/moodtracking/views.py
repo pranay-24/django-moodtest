@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.urls import reverse
 from django.template.loader import render_to_string
-from .models import Mood, Goal
+from .models import Mood, Goal, Expense
 from .forms import MoodForm ,GoalForm
 # Create your views here.
 
@@ -37,19 +37,19 @@ def find_mood(request, mood_type):
            return HttpResponseNotFound("This mood does not exist")
 
 #list of moods
-def mood_list (request):
+# def mood_list (request):
        
-       moods = [ mood['mood_title'] for mood in moods_list]
-       moodPage = ""
+#        moods = [ mood['mood_title'] for mood in moods_list]
+#        moodPage = ""
  
-    #    for mood in moods_list:
-    #        moodPage += f'<li><a href={reverse("mood_url", args = [mood])}>{mood}</a></li>'
+#     #    for mood in moods_list:
+#     #        moodPage += f'<li><a href={reverse("mood_url", args = [mood])}>{mood}</a></li>'
        
-    #    return HttpResponse(moodPage)
-       return render(request, "moodtracking/moodList.html",{"mood_list":moods}) 
+#     #    return HttpResponse(moodPage)
+#        return render(request, "moodtracking/moodList.html",{"mood_list":moods}) 
    
-def find_goal(request,goal):
-    return HttpResponse(f"this is the goal page for:  {goal}")
+# def find_goal(request,goal):
+#     return HttpResponse(f"this is the goal page for:  {goal}")
 
 # def mood_bynumber1(request,mood_number):
 #     mood_list = list(moods_dict.keys())
@@ -77,14 +77,25 @@ def mood_input(request):
     else :
         form =  MoodForm()
     return render(request,'moodinput.html', {'form':form})
-def find_mood(request, mood_id):
-    mood = Mood.objects.filter(id= mood_id)
-    return render(request, "", {"mood":mood})
+# def find_mood(request, mood_id):
+#     mood = Mood.objects.filter(id= mood_id)
+#     return render(request, "", {"mood":mood})
 
-def find_moods(request):
+# def find_moods(request):
+#     moods = Mood.objects.all()
+#     return render(request,"", {"moods":moods})
+
+def expense_list(request):
+    expenses = Expense.objects.all()
+    return render(request, 'moodtracking/expense_list.html', {'expenses': expenses})
+
+def mood_list (request):
     moods = Mood.objects.all()
-    return render(request,"", {"moods":moods})
+    return render(request, 'moodtracking/mood_list.html', {'moods': moods})
 
+def goal_list (request):
+    goals = Goal.objects.all()
+    return render(request, 'moodtracking/goal_list.html', {'goals': goals})
 #creating view function to input the goal
 #errors solved - is_valid(), request.method == POST, form(request.POST), cleaned_data
 def goal_input(request):

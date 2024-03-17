@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django import forms
+from datetime import datetime
 # Create your models here.
 
 # class Mood(models.Model):
@@ -38,13 +39,12 @@ class Mood(models.Model):
         return f"{self.mood_name}"
     
 class Expense(models.Model):
-     
-    user = models.ForeignKey(User, on_delete = models.CASCADE , default = 1)
-    title = models.CharField(max_length = 100)
-    value = models.DecimalField(max_digits = 10, decimal_places = 2)
-    mood = models.ForeignKey(Mood, on_delete = models.CASCADE, null=True, default=1)
-    expense_date = models.DateField()
-
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
+    title = models.CharField(max_length=100)
+    value = models.DecimalField(max_digits=10, decimal_places=2)
+    mood = models.ForeignKey(Mood, on_delete=models.CASCADE, null=True, default=1)
+    expense_date = models.DateField(default=datetime.now)  # Defaulting to current date
+    
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     # Add other fields as needed
@@ -60,20 +60,19 @@ class UserProfile(models.Model):
 #     isComplete = models.BooleanField(default=False)
 
 class Goal(models.Model):
-      
-     user = models.ForeignKey(User, on_delete = models.CASCADE , default = 1)
-     goal_name = models.CharField(max_length = 50)
-     target_amount = models.DecimalField(max_digits =10, decimal_places = 2)
-     current_amount = models.DecimalField(max_digits = 10, decimal_places = 2)
-     deadline = models.DateTimeField()
-     isCompleted = models.BooleanField(default= False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
+    goal_name = models.CharField(max_length=50)
+    target_amount = models.DecimalField(max_digits=10, decimal_places=2, default=100.00)
+    current_amount = models.DecimalField(max_digits=10, decimal_places=2, default=50.00)
+    deadline = models.DateTimeField(default=datetime.now)  # Defaulting to current datetime
+    isCompleted = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.goal_name
      
-     def __str__(self):
-            return self.goal_name
      
-class Notifications(models.Model): 
-   
+class Notifications(models.Model):
     message = models.CharField(max_length=200)
-    user = models.ForeignKey(User, on_delete = models.CASCADE )
-    timestamp = models.DateField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    timestamp = models.DateField(default=datetime.now)
     

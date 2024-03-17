@@ -88,20 +88,27 @@ def find_moods(request):
     moods = Mood.objects.all()
     return render(request,"", {"moods":moods})
 
-
+#creating view function to input the goal
+#errors solved - is_valid(), request.method == POST, form(request.POST), cleaned_data
 def goal_input(request):
-    if request == 'POST':
+    if request.method == 'POST':
         form = GoalForm(request.POST)
         
-        if form.isValid():
-            goal_name = form.clean_data['mood_name']
+        if form.is_valid():
+            goal_name = form.clean_data['goal_name']
             target_amount= form.cleaned_data['target_amount']
             current_amount= form.cleaned_data['current_amount']
             deadline = form.cleaned_data['deadline']
             is_completed = form.cleaned_data['is_completed']
             user_id = form.cleaned_data['user_id']
-            new_goal = Goal.objects.create(goal_name= goal_name, target_amount = target_amount, current_amount: current_amount, deadline = deadline, is_completed = is_completed, user_id = user_id)
-            return redirect('goalist.html')
+            new_goal = Goal.objects.create(
+                goal_name= goal_name,
+                target_amount = target_amount,
+                current_amount= current_amount,
+                deadline = deadline,
+                is_completed = is_completed,
+                user_id = user_id)
+            return redirect('goalist')
     else :
-        form =  MoodForm()
+        form =  GoalForm()
     return render(request,'moodinput.html', {'form':form})

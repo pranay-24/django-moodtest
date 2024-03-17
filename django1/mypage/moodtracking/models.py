@@ -31,9 +31,9 @@ from datetime import datetime
     #     super().save(self,  *args, **kwargs)
         
 class Mood(models.Model):
-    mood_name = models.CharField(max_length = 50)
-    description = models.CharField(max_length = 200)
-    emoji = models.CharField(max_length = 200)
+    mood_name = models.CharField(max_length = 50,  default = 'happy')
+    description = models.CharField(max_length = 200, default = 'this is mood happy')
+    emoji = models.CharField(max_length = 200, default  = '/static/images/1')
     
     def __str__(self):
         return f"{self.mood_name}"
@@ -61,7 +61,7 @@ class UserProfile(models.Model):
 
 class Goal(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
-    goal_name = models.CharField(max_length=50)
+    goal_name = models.CharField(max_length=50, default = "limit 200")
     target_amount = models.DecimalField(max_digits=10, decimal_places=2, default=100.00)
     current_amount = models.DecimalField(max_digits=10, decimal_places=2, default=50.00)
     deadline = models.DateTimeField(default=datetime.now)  # Defaulting to current datetime
@@ -73,6 +73,6 @@ class Goal(models.Model):
      
 class Notifications(models.Model):
     message = models.CharField(max_length=200)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
     timestamp = models.DateField(default=datetime.now)
     

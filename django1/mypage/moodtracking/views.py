@@ -1,5 +1,5 @@
-from django.shortcuts import render, redirect
-from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
+from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect 
 from django.urls import reverse
 from django.template.loader import render_to_string
 from .models import Mood, Goal, Expense
@@ -85,6 +85,7 @@ def mood_input(request):
 #     moods = Mood.objects.all()
 #     return render(request,"", {"moods":moods})
 
+# solved errors- it should be appname/templatename
 def expense_list(request):
     expenses = Expense.objects.all()
     return render(request, 'moodtracking/expense_list.html', {'expenses': expenses})
@@ -96,6 +97,23 @@ def mood_list (request):
 def goal_list (request):
     goals = Goal.objects.all()
     return render(request, 'moodtracking/goal_list.html', {'goals': goals})
+
+
+
+# View expense
+
+def expense_detail(request, expense_id):
+    expense = get_object_or_404(Expense, id=expense_id)
+    return render(request, 'expense_detail.html', {'expense': expense})
+
+def mood_detail(request,  mood_id):
+    mood = get_object_or_404(Expense, id=mood_id)
+    return render(request, 'mood_detail.html', {'mood': mood})
+
+def goal_detail(request, goal_id):
+    goal = get_object_or_404(Expense, id=goal_id)
+    return render(request, 'goal_detail.html', {'goal': goal})
+
 #creating view function to input the goal
 #errors solved - is_valid(), request.method == POST, form(request.POST), cleaned_data
 def goal_input(request):

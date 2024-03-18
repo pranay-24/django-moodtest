@@ -120,6 +120,13 @@ def goal_detail(request, goal_id):
     goal = get_object_or_404(Expense, id=goal_id)
     return render(request, 'moodtracking/goal_detail.html', {'goal': goal})
 
+
+
+#index , login register views
+
+def index(request):
+    return render(request, 'moodtracking/index.html')
+
 def custom_login(request):
     if request.method == 'POST':
         form = AuthenticationForm(request.POST)

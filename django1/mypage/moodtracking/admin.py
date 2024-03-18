@@ -2,6 +2,8 @@ from django.contrib import admin
 from . import models
 # Register your models here.
 
+
+    
 class ExpenseAdmin(admin.ModelAdmin):
     list_display = ('title', 'value', 'mood','expense_date', 'user') 
     list_filter = ('mood',)
@@ -17,3 +19,6 @@ class GoalAdmin(admin.ModelAdmin):
 admin.site.register (models.Expense, ExpenseAdmin)
 admin.site.register(models.Mood, MoodAdmin)
 admin.site.register(models.Goal, GoalAdmin) 
+
+#registering the userProfile to admin.site
+admin.site.register(models.UserProfile)

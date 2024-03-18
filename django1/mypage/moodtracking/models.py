@@ -44,7 +44,8 @@ class Expense(models.Model):
     value = models.DecimalField(max_digits=10, decimal_places=2)
     mood = models.ForeignKey(Mood, on_delete=models.CASCADE, null=True, default=1)
     expense_date = models.DateField(default=datetime.now)  # Defaulting to current date
-    
+
+#chose one to one mapping instead of inheriting directl from user model    
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     # Add other fields as needed

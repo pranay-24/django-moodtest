@@ -6,7 +6,7 @@ urlpatterns = [
     # path('<str:mood_type>',views.find_mood, name = "mood_url"),
     # path('',views.mood_list),
     path('', views.index , name='index'),
-    path('register/', views.register , name ='register')
+    path('register/', views.register , name ='register'),
     path('accounts/login/', views.custom_login, name='login'),
     path('accounts/logout/', views.custom_logout, name='logout'),
     path('moods/', views.mood_list, name='mood-list'),

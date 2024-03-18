@@ -3,7 +3,7 @@ from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.urls import reverse
 from django.template.loader import render_to_string
 from .models import Mood, Goal, Expense
-from .forms import MoodForm ,GoalForm, AuthenticationForm
+from .forms import MoodForm ,GoalForm, AuthenticationForm, UserForm
 from django.contrib.auth import authenticate, login,logout
 from django.contrib.auth.decorators import login_required
 
@@ -126,6 +126,24 @@ def goal_detail(request, goal_id):
 
 def index(request):
     return render(request, 'moodtracking/index.html')
+
+
+def register(request):
+    registered = False
+    
+    if request.method == 'POST':
+        user_form = UserForm(data=request.POST)
+        
+        if user_form.is_valid():
+            user = user_form.save()
+            user.save()
+            registered = True
+        else:
+            print(user_form.errors)
+    else:
+        user_form = UserForm()
+    
+    return render(request, 'moodtracking/registration.html', {'user_form': user_form, 'registered': registered})
 
 def custom_login(request):
     if request.method == 'POST':

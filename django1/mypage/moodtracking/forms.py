@@ -1,6 +1,7 @@
 from django import forms 
 from .models import Goal, Mood, Expense
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.models import User
 
 class CustomLoginForm(AuthenticationForm):
     pass
@@ -22,4 +23,9 @@ class MoodForm (forms.ModelForm):
         model = Mood
         fields = ['mood_name', 'description', 'emoji']
         
+
+class UserFrom(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'password')
         

@@ -5,11 +5,13 @@ urlpatterns = [
     # path('<int:mood_number>', views.find_mood_bynumber),
     # path('<str:mood_type>',views.find_mood, name = "mood_url"),
     # path('',views.mood_list),
+    path('accounts/login/', views.custom_login, name='login'),
+    path('accounts/logout/', views.custom_logout, name='logout'),
     path('moods/', views.mood_list, name='mood-list'),
     path('expenses/', views.expense_list, name = 'expense-list'),
     path('goals/', views.goal_list, name = 'goal-list'),
     path('moods/<int:mood_id>', views.mood_detail, name='mood-detail'),
     path('expenses/<int:expense_id>', views.expense_detail, name='expense-detail'),
-     path('goals/<int:goal_id>', views.goal_detail, name='goal-detail'),
+    path('goals/<int:goal_id>', views.goal_detail, name='goal-detail'),
    
-]
+]   

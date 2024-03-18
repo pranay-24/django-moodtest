@@ -1,12 +1,16 @@
 from django import forms 
 from .models import Goal, Mood, Expense
+from django.contrib.auth.forms import AuthenticationForm
 
+class CustomLoginForm(AuthenticationForm):
+    pass
+    
 #errors - class Meta, structure of class GoalForm
 
 class ExpenseForm(forms.ModelForm):
     class Meta:
         model = Expense
-        fields = ['title', 'value', 'mood','expense_date', ]
+        fields = ['title', 'value', 'mood','expense_date']
         
 class GoalForm(forms.ModelForm):
     class Meta:

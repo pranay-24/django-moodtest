@@ -3,7 +3,10 @@ from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.urls import reverse
 from django.template.loader import render_to_string
 from .models import Mood, Goal, Expense
-from .forms import MoodForm ,GoalForm
+from .forms import MoodForm ,GoalForm, AuthenticationForm
+from django.contrib.auth import authenticate, login,logout
+from django.contrib.auth.decorators import login_required
+
 # Create your views here.
 
 moods_list = [
@@ -86,13 +89,16 @@ def mood_input(request):
 #     return render(request,"", {"moods":moods})
 
 # solved errors- it should be appname/templatename
+
 def expense_list(request):
     expenses = Expense.objects.all()
     return render(request, 'moodtracking/expense_list.html', {'expenses': expenses})
 
+
 def mood_list (request):
     moods = Mood.objects.all()
     return render(request, 'moodtracking/mood_list.html', {'moods': moods})
+
 
 def goal_list (request):
     goals = Goal.objects.all()
@@ -104,16 +110,39 @@ def goal_list (request):
 
 def expense_detail(request, expense_id):
     expense = get_object_or_404(Expense, id=expense_id)
-    return render(request, 'expense_detail.html', {'expense': expense})
+    return render(request, 'moodtracking/expense_detail.html', {'expense': expense})
 
 def mood_detail(request,  mood_id):
     mood = get_object_or_404(Expense, id=mood_id)
-    return render(request, 'mood_detail.html', {'mood': mood})
+    return render(request, 'moodtracking/mood_detail.html', {'mood': mood})
 
 def goal_detail(request, goal_id):
     goal = get_object_or_404(Expense, id=goal_id)
-    return render(request, 'goal_detail.html', {'goal': goal})
+    return render(request, 'moodtracking/goal_detail.html', {'goal': goal})
 
+def custom_login(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user = authenticate(request, username=username, password= password)
+            if user is not None:
+                login(request,user)
+                return redirect('expense-list')
+            else:
+                form.add_error(None, 'Invalid username or password')
+    
+    else:
+        form = AuthenticationForm()
+        
+    return render(request, 'moodtracking/login.html', {'form': form})
+
+    
+def custom_logout(request):
+    logout(request)
+    return redirect('login')
+    
 #creating view function to input the goal
 #errors solved - is_valid(), request.method == POST, form(request.POST), cleaned_data
 def goal_input(request):
@@ -137,4 +166,4 @@ def goal_input(request):
             return redirect('goalist')
     else :
         form =  GoalForm()
-    return render(request,'moodinput.html', {'form':form})
+    return render(request,'moodtracking/moodinput.html', {'form':form})

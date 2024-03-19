@@ -161,7 +161,7 @@ def user_login(request):
         return render(request, 'moodtracking/login.html',{})
 
 @login_required   
-def custom_logout(request):
+def user_logout(request):
     logout(request)
     return HttpResponseRedirect(reverse('login'))
 

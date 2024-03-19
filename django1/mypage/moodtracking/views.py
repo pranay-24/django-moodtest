@@ -153,7 +153,7 @@ def user_login(request):
         user = authenticate(request, username= username, password = password)
         if user : 
             login(request, user)
-            return HttpResponseRedirect(reverse('index'))
+            return HttpResponseRedirect(reverse('expense-list'))
         else:
             
             return HttpResponse('Invalid details ')

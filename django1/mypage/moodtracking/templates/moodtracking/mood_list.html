@@ -1,10 +1,6 @@
-<!-- mood_list.html -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Mood List</title>
-</head>
+{% extends 'moodtracking/base.html' %}
+
+{% block body_block %}
 <body>
     <h1>Mood List</h1>
     <ul>
@@ -12,5 +8,5 @@
         <li>{{ mood.mood_name }} - {{ mood.description }} - {{ mood.emoji }}</li>
         {% endfor %}
     </ul>
-</body>
-</html>
+
+{% endblock %}

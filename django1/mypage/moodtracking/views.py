@@ -148,21 +148,17 @@ def register(request):
 def user_login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
-        form = AuthenticationForm(request.POST)
-        if form.is_valid():
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-            user = authenticate(request, username=username, password= password)
-            if user is not None:
-                login(request,user)
-                return redirect('expense-list')
-            else:
-                form.add_error(None, 'Invalid username or password')
-    
-    else:
-        form = AuthenticationForm()
+        password = request.POST.get('password')
         
-    return render(request, 'moodtracking/login.html', {'form': form})
+        user = authenticate(request, username= username, password = password)
+        if user : 
+            login(request, user)
+            return HttpResponseRedirect(reverse('index'))
+        else:
+            
+            return HttpResponse('Invalid details ')
+    else:
+        return render(request, 'moodtracking/login.html',{})
 
     
 def custom_logout(request):

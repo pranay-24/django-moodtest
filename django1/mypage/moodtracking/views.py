@@ -101,7 +101,9 @@ def mood_list (request):
 
 
 def goal_list (request):
-    goals = Goal.objects.all()
+    current_user = request.user
+    print(current_user)
+    goals = current_user.goals.all()
     return render(request, 'moodtracking/goal_list.html', {'goals': goals})
 
 
@@ -173,23 +175,24 @@ def special(request):
 #errors solved - is_valid(), request.method == POST, form(request.POST), cleaned_data
 def goal_input(request):
     if request.method == 'POST':
-        form = GoalForm(request.POST)
+        goal_form = GoalForm(request.POST)
         
-        if form.is_valid():
-            goal_name = form.clean_data['goal_name']
-            target_amount= form.cleaned_data['target_amount']
-            current_amount= form.cleaned_data['current_amount']
-            deadline = form.cleaned_data['deadline']
-            is_completed = form.cleaned_data['is_completed']
-            user_id = form.cleaned_data['user_id']
+        if goal_form.is_valid():
+            goal_name = goal_form.cleaned_data['goal_name']
+            target_amount= goal_form.cleaned_data['target_amount']
+            current_amount= goal_form.cleaned_data['current_amount']
+            deadline = goal_form.cleaned_data['deadline']
+            isCompleted = goal_form.cleaned_data['isCompleted']
+            user_id = goal_form.cleaned_data['user_id']
             new_goal = Goal.objects.create(
                 goal_name= goal_name,
                 target_amount = target_amount,
                 current_amount= current_amount,
                 deadline = deadline,
-                is_completed = is_completed,
+                isCompleted = isCompleted,
                 user_id = user_id)
+            new_goal.save()
             return redirect('goalist')
     else :
-        form =  GoalForm()
-    return render(request,'moodtracking/moodinput.html', {'form':form})
+        goal_form =  GoalForm()
+    return render(request,'moodtracking/goal_create.html', {'goal_form':goal_form})

@@ -1,0 +1,16 @@
+{% extends  'moodtracking/base.html' %}
+
+{% block body_block %}
+    <div class="jumbotron">
+        {%if user.is_authenticated %}
+          
+            <form method="post">
+                {% csrf_token %}
+
+                {{goal_form.as_p}}
+
+                <input type="submit" value="Create Goal">
+            </form>
+        {% endif %}
+    </div>
+{% endblock %}

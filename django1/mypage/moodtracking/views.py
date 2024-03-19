@@ -173,6 +173,7 @@ def special(request):
 
 #creating view function to input the goal
 #errors solved - is_valid(), request.method == POST, form(request.POST), cleaned_data
+@login_required
 def goal_input(request):
     if request.method == 'POST':
         goal_form = GoalForm(request.POST)
@@ -183,16 +184,18 @@ def goal_input(request):
             current_amount= goal_form.cleaned_data['current_amount']
             deadline = goal_form.cleaned_data['deadline']
             isCompleted = goal_form.cleaned_data['isCompleted']
-            user_id = goal_form.cleaned_data['user_id']
+            # user_id = goal_form.cleaned_data['user_id']
             new_goal = Goal.objects.create(
                 goal_name= goal_name,
                 target_amount = target_amount,
                 current_amount= current_amount,
                 deadline = deadline,
                 isCompleted = isCompleted,
-                user_id = user_id)
+                # user_id = user_id
+                user = request.user
+                )
             new_goal.save()
-            return redirect('goalist')
+            return redirect('goal-list')
     else :
         goal_form =  GoalForm()
     return render(request,'moodtracking/goal_create.html', {'goal_form':goal_form})

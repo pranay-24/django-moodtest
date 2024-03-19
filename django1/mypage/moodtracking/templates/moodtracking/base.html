@@ -17,6 +17,10 @@
                     <li><a class='navbar-brand' href="{% url 'admin:index' %}">Admin</a></li>
                 
                 {%if user.is_authenticated %}
+                <li><a class="navbar-link" href="{% url 'expense-list' %} ">Expenses</a></li>
+                <li><a class="navbar-link" href="{% url 'goal-list' %} ">Goals</a></li>
+                <li><a class="navbar-link" href="{% url 'mood-list' %} ">Mood</a></li>
+
                     <li><a class="navbar-link" href="{% url 'logout' %} ">Logout</a></li>
                 {% else %}
                      <li><a class="navbar-link" href="{% url 'login' %}">Login</a></li>   

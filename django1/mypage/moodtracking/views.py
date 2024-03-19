@@ -164,7 +164,11 @@ def user_login(request):
 def custom_logout(request):
     logout(request)
     return HttpResponseRedirect(reverse('login'))
-    
+
+@login_required
+def special(request):
+    return HttpResponse("You are logged in")  
+
 #creating view function to input the goal
 #errors solved - is_valid(), request.method == POST, form(request.POST), cleaned_data
 def goal_input(request):

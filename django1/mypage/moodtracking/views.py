@@ -160,10 +160,10 @@ def user_login(request):
     else:
         return render(request, 'moodtracking/login.html',{})
 
-    
+@login_required   
 def custom_logout(request):
     logout(request)
-    return redirect('login')
+    return HttpResponseRedirect(reverse('login'))
     
 #creating view function to input the goal
 #errors solved - is_valid(), request.method == POST, form(request.POST), cleaned_data

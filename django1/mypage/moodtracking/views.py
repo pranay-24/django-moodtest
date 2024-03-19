@@ -145,8 +145,9 @@ def register(request):
     
     return render(request, 'moodtracking/registration.html', {'user_form': user_form, 'registered': registered})
 
-def custom_login(request):
+def user_login(request):
     if request.method == 'POST':
+        username = request.POST.get('username')
         form = AuthenticationForm(request.POST)
         if form.is_valid():
             username = form.cleaned_data['username']

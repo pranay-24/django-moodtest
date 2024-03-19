@@ -1,21 +1,18 @@
-<!-- login.html -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-</head>
-<body>
+{% extends 'moodtracking/base.html'%}
+
+{% block body_block %}
     <h1>Login</h1>
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+            <label for="username">Username:</label>
+            <input type="text" name="username" placeholder=""Enter username>
 
-        {% if form.errors %}
-            <p style="color: red;">{{ form.errors }}</p>
-        {% endif %}
+            <label for="password">Password:</label>
+            <input type="password" name="password">
 
-        <button type="submit">Login</button>
+            <input type="submit" value="login">
+
+         
     </form>
-</body>
-</html>
+
+{%  endblock %}

@@ -39,10 +39,10 @@ class Mood(models.Model):
         return f"{self.mood_name}"
     
 class Expense(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     value = models.DecimalField(max_digits=10, decimal_places=2)
-    mood = models.ForeignKey(Mood, on_delete=models.CASCADE, null=True, default=1)
+    mood = models.ForeignKey(Mood, on_delete=models.CASCADE, null=True)
     expense_date = models.DateField(default=datetime.now)  # Defaulting to current date
 
 #chose one to one mapping instead of inheriting directl from user model    
@@ -61,10 +61,10 @@ class UserProfile(models.Model):
 #     isComplete = models.BooleanField(default=False)
 
 class Goal(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
-    goal_name = models.CharField(max_length=50, default = "limit 200")
-    target_amount = models.DecimalField(max_digits=10, decimal_places=2, default=100.00)
-    current_amount = models.DecimalField(max_digits=10, decimal_places=2, default=50.00)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    goal_name = models.CharField(max_length=50)
+    target_amount = models.DecimalField(max_digits=10, decimal_places=2)
+    current_amount = models.DecimalField(max_digits=10, decimal_places=2)
     deadline = models.DateTimeField(default=datetime.now)  # Defaulting to current datetime
     isCompleted = models.BooleanField(default=False)
 
@@ -74,6 +74,6 @@ class Goal(models.Model):
      
 class Notifications(models.Model):
     message = models.CharField(max_length=200)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     timestamp = models.DateField(default=datetime.now)
     

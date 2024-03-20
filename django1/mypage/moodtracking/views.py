@@ -89,9 +89,10 @@ def mood_input(request):
 #     return render(request,"", {"moods":moods})
 
 # solved errors- it should be appname/templatename
-
+@login_required
 def expense_list(request):
-    expenses = Expense.objects.all()
+    current_user = request.user
+    expenses = current_user.expenses.all()
     return render(request, 'moodtracking/expense_list.html', {'expenses': expenses})
 
 
@@ -99,10 +100,10 @@ def mood_list (request):
     moods = Mood.objects.all()
     return render(request, 'moodtracking/mood_list.html', {'moods': moods})
 
-
+@login_required
 def goal_list (request):
     current_user = request.user
-    print(current_user)
+    # print(current_user)
     goals = current_user.goals.all()
     return render(request, 'moodtracking/goal_list.html', {'goals': goals})
 

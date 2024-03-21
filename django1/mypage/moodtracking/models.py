@@ -54,7 +54,12 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return self.user.username
-       
+
+class Notifications(models.Model):
+    message = models.CharField(max_length=200)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name = "notifications")
+    timestamp = models.DateField(default=datetime.now)
+        
 # class Goal(models.Model):
 #     title = models.CharField(max_length=200)
 #     value = models.IntegerField() # can add validator lke IntegerField(validators = [MaxValueValidator(5), MinValueValidator(1)]) # and import MaxValuealidator from django.core.validators
@@ -70,10 +75,17 @@ class Goal(models.Model):
 
     def __str__(self):
         return self.goal_name
+    
+    def save(self, *args, **kwargs):
+        is_new = self.pk is None
+        super().save(*args, **kwargs)
+        if is_new:
+            Notifications.objects.create(
+                user = self.user,
+                message = f"goal created with goal name {self.goal_name}",
+                timestamp = datetime.now()
+            )
+        
      
-     
-class Notifications(models.Model):
-    message = models.CharField(max_length=200)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name = "notifications")
-    timestamp = models.DateField(default=datetime.now)
+
     

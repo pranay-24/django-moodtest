@@ -100,6 +100,7 @@ def mood_list (request):
     moods = Mood.objects.all()
     return render(request, 'moodtracking/mood_list.html', {'moods': moods})
 
+#dont want all goals, want all goads for a  user, that user will also come from request
 @login_required
 def goal_list (request):
     current_user = request.user
@@ -174,6 +175,7 @@ def special(request):
 
 #creating view function to input the goal
 #errors solved - is_valid(), request.method == POST, form(request.POST), cleaned_data
+#removed user_id, userwill ocme from requrest.user if authenticated
 @login_required
 def goal_input(request):
     if request.method == 'POST':
@@ -200,3 +202,6 @@ def goal_input(request):
     else :
         goal_form =  GoalForm()
     return render(request,'moodtracking/goal_create.html', {'goal_form':goal_form})
+
+
+ 
